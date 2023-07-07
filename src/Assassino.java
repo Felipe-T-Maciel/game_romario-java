@@ -97,4 +97,9 @@ public class Assassino extends Unidade{
 
         return areaAtaque;
     }
+
+    @Override
+    String icon() {
+        return "As";
+    }
 }

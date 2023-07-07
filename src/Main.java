@@ -4,10 +4,12 @@ import java.util.Scanner;
 public class Main {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        menu();
-    }
+        Jogador jogador1 = new Jogador("");
+        Jogador jogador2 = new Jogador("");
 
-    private static void menu() {
+        menu(jogador1, jogador2);
+    }
+    private static void menu(Jogador jogador1, Jogador jogador2) {
         int opcaoMenuPrincipal=0;
         do{
             System.out.println("""
@@ -29,10 +31,12 @@ public class Main {
                 System.out.println("Digite seu nome jogador 2: ");
                 String nomeJogador2 = sc.next();
 
-                Jogador jogador1 = new Jogador(nomeJogador1);
-                Jogador jogador2 = new Jogador(nomeJogador2);
+                jogador1.nome = nomeJogador1;
+                jogador2.nome = nomeJogador2;
 
                 for (int i = 1; i < 3; i++) {
+                    System.out.println("===============================================================");
+
                     if (i<2){
                         System.out.println("OLA "+jogador1.nome+"\n ESTA PRONTO? pois é melhor que esteja");
                     }
@@ -40,7 +44,9 @@ public class Main {
                         System.out.println("OLA "+jogador2.nome+"\n ESTA PRONTO? pois é melhor que esteja");
 
                     }
-                    for (int j = 1; j < 7; j++) {
+                    System.out.println("===============================================================");
+
+                    for (int j = 1; j < 4; j++) {
                         System.out.println("""
                         Escolha seus campeões:
                         
@@ -61,26 +67,72 @@ public class Main {
                         >""");
                         int jogadores = sc.nextInt();
 
-                        switch (jogadores){
-                            case 1:
-                                if(i<2){
-                                    jogador1.pecas.add(new Mago(100, 35,"mago"));
+                        switch (jogadores) {
+                            case 1 -> {
+                                if (i < 2) {
+                                    jogador1.pecas.add(new Mago(100, 35, "Mago"));
+                                } else {
+                                    jogador2.pecas.add(new Mago(100, 35, "Mago"));
                                 }
-                                else {
-                                    jogador2.pecas.add(new Mago(100, 35,"mago"));
+                            }
+                            case 2 -> {
+                                if (i < 2) {
+                                    jogador1.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
+                                } else {
+                                    jogador2.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
                                 }
-                                break;
-                            case 2:
-                                if(i<2){
-                                    jogador1.pecas.add(new Arqueiro(100,15,"arqueiro"));
-                                }else {
-                                    jogador2.pecas.add(new Arqueiro(100,15,"arqueiro"));
-                                }
-                                break;
+                            }
+                            case 3 -> {
+                                if (i < 2) {
+                                    jogador1.pecas.add(new Assassino(80, 40, "Assassino"));
+                                } else {
+                                    jogador2.pecas.add(new Assassino(80, 40, "Assassino"));
 
+                                }
+                            }
+                            case 4 -> {
+                                if (i < 2) {
+                                    jogador1.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
+                                } else {
+                                    jogador2.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
+
+                                }
+                            }
+                            case 5 -> {
+                                if (i < 2) {
+                                    jogador1.pecas.add(new Tanque(200, 5, "Tanque"));
+                                } else {
+                                    jogador2.pecas.add(new Tanque(200, 5, "Tanque"));
+
+                                }
+                            }
+                            default -> {
+                                System.out.print("Escolha uma peça valida");
+                                return;
+                            }
                         }
                     }
                 }
+                break;
+            case 2:
+                System.exit(0);
+                break;
+            default:
+                System.out.print("Escolha uma peça valida");
+                break;
         }
+
+        posicaoPecaJogador(jogador1, jogador2);
+    }
+
+    private static void posicaoPecaJogador(Jogador jogador1, Jogador jogador2) {
+        Mapa mapa = new Mapa();
+
+        for (int i = 0; i < jogador1.pecas.size(); i++) {
+            System.out.println("Onde deseja colocar o "+jogador1.pecas.get(i).nome);
+            int posicaoPeca = sc.nextInt();
+            jogador1.prePosicaoJogador1(jogador1.pecas.get(i), posicaoPeca);
+        }
+
     }
 }

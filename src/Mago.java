@@ -102,6 +102,10 @@ public class Mago extends Unidade{
         return areaAtaque;
     }
 
+    @Override
+    String icon() {
+        return "Ma";
+    }
 
 
 }

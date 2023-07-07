@@ -92,4 +92,9 @@ public class Arqueiro extends Unidade{
 
         return areaAtaque;
     }
+
+    @Override
+    String icon() {
+        return "Ar";
+    }
 }

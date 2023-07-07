@@ -99,4 +99,9 @@ public class Cavaleiro extends Unidade {
 
         return areaAtaque;
     }
+
+    @Override
+    String icon() {
+        return "Ca";
+    }
 }
