@@ -7,6 +7,7 @@ public class Main {
         Jogador jogador1 = new Jogador("");
         Jogador jogador2 = new Jogador("");
 
+
         menu(jogador1, jogador2);
     }
     private static void menu(Jogador jogador1, Jogador jogador2) {
@@ -126,12 +127,41 @@ public class Main {
     }
 
     private static void posicaoPecaJogador(Jogador jogador1, Jogador jogador2) {
-        Mapa mapa = new Mapa();
 
-        for (int i = 0; i < jogador1.pecas.size(); i++) {
-            System.out.println("Onde deseja colocar o "+jogador1.pecas.get(i).nome);
-            int posicaoPeca = sc.nextInt();
-            jogador1.prePosicaoJogador1(jogador1.pecas.get(i), posicaoPeca);
+        for (int i = 0; i < 2; i++) {
+            Jogador jogando;
+            System.out.println("Que jogador esta jogando?");
+            String nome = sc.next();
+            if(nome.equals(jogador1.nome)){
+                jogando = jogador1;
+            }else if(nome.equals(jogador2.nome)){
+                jogando = jogador2;
+            }
+            else {
+                return;
+            }
+            Mapa mapa = new Mapa();
+
+            for (int j = 0; j < jogando.pecas.size(); j++) {
+                System.out.println("Onde deseja colocar o "+jogando.pecas.get(i).nome);
+                int posicaoPeca = sc.nextInt();
+                if (jogando.equals(jogador1)){
+                    if(posicaoPeca>=42 && posicaoPeca<72){
+                        jogando.prePosicaoJogador1(jogando.pecas.get(i), posicaoPeca);
+                    }else {
+                        System.out.println("Escolha uma posição valida para a peça");
+                        return;
+                    }
+                }
+                else {
+                    if(posicaoPeca<=29 && posicaoPeca>0){
+                        jogando.prePosicaoJogador1(jogando.pecas.get(i), posicaoPeca);
+                    }else {
+                        System.out.println("Escolha uma posição valida para a peça");
+                        return;
+                    }
+                }
+            }
         }
 
     }

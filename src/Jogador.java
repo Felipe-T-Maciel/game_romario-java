@@ -17,11 +17,16 @@ public class Jogador {
         }
         prePosicao.get(posicao).setUnidade(peca);
         for (Posicao posicaoFor : prePosicao) {
-            if (posicaoFor.getUnidade() == null){
-                System.out.print("[  ] ");
+            if(prePosicao.indexOf(posicaoFor)<42){
+                System.out.print("['X'] ");
             }
-            else{
-                System.out.print("["+posicaoFor.getUnidade().icon()+"]");
+            else {
+                if (posicaoFor.getUnidade() == null){
+                    System.out.print("[  ] ");
+                }
+                else{
+                    System.out.print("["+posicaoFor.getUnidade().icon()+"]");
+                }
             }
             if ((prePosicao.indexOf(posicaoFor)+1)%6 == 0){
                 System.out.println("\n");
@@ -31,4 +36,5 @@ public class Jogador {
         }
 
     }
+
 }
