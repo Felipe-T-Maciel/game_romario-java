@@ -2,23 +2,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
     static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Jogador jogador1 = new Jogador("");
-        Jogador jogador2 = new Jogador("");
+        Jogador jogador1 = new Jogador("felipe");
+        Jogador jogador2 = new Jogador("julio");
 
 
         menu(jogador1, jogador2);
     }
+
     private static void menu(Jogador jogador1, Jogador jogador2) {
         int opcaoMenuPrincipal=0;
         do{
             System.out.println("""
                     ----- Seja bem vindo ao ... -----
-                    
+
                         [1] Começar jogo
                         [2] Sair
-                        
+
                     ---------------------------------""");
             opcaoMenuPrincipal = sc.nextInt();
 
@@ -50,19 +53,19 @@ public class Main {
                     for (int j = 1; j < 4; j++) {
                         System.out.println("""
                         Escolha seus campeões:
-                        
+
                         Tipo longo alcance:
-                            
+
                             [1] Mago
                             [2] Arqueiro
-                        
+
                         Tipo curto alcance:
-                            
+
                             [3] Assassino
                             [4] Cavaleiro
-                        
+
                         Tanque:
-                            
+
                             [5] Tanque-Wesly
                         ________________________
                         >""");
@@ -109,7 +112,7 @@ public class Main {
                             }
                             default -> {
                                 System.out.print("Escolha uma peça valida");
-                                return;
+                                j--;
                             }
                         }
                     }
@@ -129,40 +132,55 @@ public class Main {
     private static void posicaoPecaJogador(Jogador jogador1, Jogador jogador2) {
 
         for (int i = 0; i < 2; i++) {
-            Jogador jogando;
-            System.out.println("Que jogador esta jogando?");
-            String nome = sc.next();
-            if(nome.equals(jogador1.nome)){
-                jogando = jogador1;
-            }else if(nome.equals(jogador2.nome)){
-                jogando = jogador2;
-            }
-            else {
-                return;
-            }
-            Mapa mapa = new Mapa();
-
-            for (int j = 0; j < jogando.pecas.size(); j++) {
-                System.out.println("Onde deseja colocar o "+jogando.pecas.get(i).nome);
-                int posicaoPeca = sc.nextInt();
-                if (jogando.equals(jogador1)){
-                    if(posicaoPeca>=42 && posicaoPeca<72){
-                        jogando.prePosicaoJogador1(jogando.pecas.get(i), posicaoPeca);
-                    }else {
-                        System.out.println("Escolha uma posição valida para a peça");
-                        return;
-                    }
+            Jogador jogando = new Jogador("");
+            do{
+                System.out.println("Que jogador esta jogando?");
+                String nome = sc.next();
+                if(nome.equals(jogador1.nome)){
+                    jogando = jogador1;
+                }else if(nome.equals(jogador2.nome)){
+                    jogando = jogador2;
                 }
                 else {
-                    if(posicaoPeca<=29 && posicaoPeca>0){
-                        jogando.prePosicaoJogador1(jogando.pecas.get(i), posicaoPeca);
-                    }else {
-                        System.out.println("Escolha uma posição valida para a peça");
-                        return;
-                    }
+                    System.out.println("Digite um nome verdadeiro!");
+                }
+            }while(jogando!=jogador1 && jogando != jogador2);
+
+            for (int j = 0; j < jogando.pecas.size(); j++) {
+                int posicaoPeca = 0;
+                if (jogando.equals(jogador1)){
+                    do{
+                        jogando.ImprimeLista(jogando, jogador1);
+                        System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
+                        posicaoPeca = sc.nextInt();
+                        if(posicaoPeca>=19 || posicaoPeca<36){
+                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca);
+                        }else {
+                            System.out.println("Escolha uma posição valida para a peça");
+                        }
+                    }while (posicaoPeca<19 || posicaoPeca>36);
+                }
+                else {
+                    do{
+                        jogando.ImprimeLista(jogando, jogador1);
+                        System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
+                        posicaoPeca = sc.nextInt();
+                        if(posicaoPeca<=18 || posicaoPeca>0){
+                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca);
+                        }else {
+                            System.out.println("Escolha uma posição valida para a peça");
+                        }
+                    }while (posicaoPeca>18 || posicaoPeca<0);
                 }
             }
         }
 
+        gamePlay(jogador1, jogador2);
     }
+
+    private static void gamePlay(Jogador jogador1, Jogador jogador2){
+        Mapa mapa = new Mapa();
+        mapa.mapa(jogador1);
+    }
+
 }
