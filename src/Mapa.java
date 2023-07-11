@@ -29,4 +29,12 @@ public class Mapa {
         System.out.print("====================================\n");
     }
 
+    public ArrayList<Posicao> inicializaPosicao(Jogador jogador1, Jogador jogador2){
+        ArrayList<Posicao> prePosicaoJ1 = jogador1.getPrePosicao();
+        for (Posicao posicaoJ1:
+             prePosicao) {
+
+        }
+    }
+
 }
