@@ -67,36 +67,36 @@ public class Mago extends Unidade{
         int z=6;
 
         if(jogandoAgora == jogador1){
-            while(posicoesNoMapa.get(posicaoNoMapa-i) == null && !verificaExtremidade((posicaoNoMapa-i)+1)){
+            do{
                 i += 5;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa-i));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa-i) == null && !verificaExtremidade((posicaoNoMapa-i)+1));
 
-            while(posicoesNoMapa.get(posicaoNoMapa-j) == null && !verificaExtremidade(posicaoNoMapa-j)){
+            do{
                 j += 7;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa-j));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa-j) == null && !verificaExtremidade(posicaoNoMapa-j));
 
-            while(posicoesNoMapa.get(posicaoNoMapa-z) == null){
+            do{
                 z += 6;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa-z));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa-z) == null);
         }
         else {
-            while(posicoesNoMapa.get(posicaoNoMapa+i) == null && !verificaExtremidade(posicaoNoMapa+i)){
+            do{
                 i += 5;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa+i));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa+i) == null && !verificaExtremidade(posicaoNoMapa+i));
 
-            while(posicoesNoMapa.get(posicaoNoMapa+j) == null && !verificaExtremidade((posicaoNoMapa+j)+1)){
+            do{
                 j += 7;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa+j));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa+j) == null && !verificaExtremidade((posicaoNoMapa+j)+1));
 
-            while(posicoesNoMapa.get(posicaoNoMapa+z) == null){
+            do{
                 z += 6;
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa+z));
-            }
+            }while(posicoesNoMapa.get(posicaoNoMapa+z) == null);
         }
 
         return areaAtaque;

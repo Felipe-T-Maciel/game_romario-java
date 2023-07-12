@@ -38,10 +38,10 @@ public class Main {
                 jogador1.nome = nomeJogador1;
                 jogador2.nome = nomeJogador2;
 
-                for (int i = 1; i < 3; i++) {
+                for (int i = 0; i < 2; i++) {
                     System.out.println("===============================================================");
 
-                    if (i<2){
+                    if (i<1){
                         System.out.println("OLA "+jogador1.nome+"\n ESTA PRONTO? pois é melhor que esteja");
                     }
                     else {
@@ -50,7 +50,7 @@ public class Main {
                     }
                     System.out.println("===============================================================");
 
-                    for (int j = 1; j < 4; j++) {
+                    for (int j = 0; j < 3; j++) {
                         System.out.println("""
                         Escolha seus campeões:
 
@@ -73,21 +73,21 @@ public class Main {
 
                         switch (jogadores) {
                             case 1 -> {
-                                if (i < 2) {
+                                if (i < 1) {
                                     jogador1.pecas.add(new Mago(100, 35, "Mago"));
                                 } else {
                                     jogador2.pecas.add(new Mago(100, 35, "Mago"));
                                 }
                             }
                             case 2 -> {
-                                if (i < 2) {
+                                if (i < 1) {
                                     jogador1.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
                                 } else {
                                     jogador2.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
                                 }
                             }
                             case 3 -> {
-                                if (i < 2) {
+                                if (i < 1) {
                                     jogador1.pecas.add(new Assassino(80, 40, "Assassino"));
                                 } else {
                                     jogador2.pecas.add(new Assassino(80, 40, "Assassino"));
@@ -95,7 +95,7 @@ public class Main {
                                 }
                             }
                             case 4 -> {
-                                if (i < 2) {
+                                if (i < 1) {
                                     jogador1.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
                                 } else {
                                     jogador2.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
@@ -103,7 +103,7 @@ public class Main {
                                 }
                             }
                             case 5 -> {
-                                if (i < 2) {
+                                if (i < 1) {
                                     jogador1.pecas.add(new Tanque(200, 5, "Tanque"));
                                 } else {
                                     jogador2.pecas.add(new Tanque(200, 5, "Tanque"));
@@ -130,31 +130,27 @@ public class Main {
     }
 
     private static void posicaoPecaJogador(Jogador jogador1, Jogador jogador2) {
-
+        Mapa mapa = new Mapa();
         for (int i = 0; i < 2; i++) {
             Jogador jogando = new Jogador("");
-            do{
-                System.out.println("Que jogador esta jogando?");
-                String nome = sc.next();
-                if(nome.equals(jogador1.nome)){
-                    jogando = jogador1;
-                }else if(nome.equals(jogador2.nome)){
-                    jogando = jogador2;
-                }
-                else {
-                    System.out.println("Digite um nome verdadeiro!");
-                }
-            }while(jogando!=jogador1 && jogando != jogador2);
+
+            if(i==0){
+                jogando = jogador1;
+            }else {
+                jogando = jogador2;
+            }
+
+            System.out.println("Jogador "+jogando.nome+" sua vez de jogar!!");
 
             for (int j = 0; j < jogando.pecas.size(); j++) {
                 int posicaoPeca = 0;
                 if (jogando.equals(jogador1)){
                     do{
-                        jogando.ImprimeLista(jogando, jogador1);
+                        mapa.ImprimeLista(jogando, jogador1);
                         System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
                         posicaoPeca = sc.nextInt();
-                        if(posicaoPeca>=19 || posicaoPeca<36){
-                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca);
+                        if(posicaoPeca>=19 && posicaoPeca<36){
+                            jogador1.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                         }else {
                             System.out.println("Escolha uma posição valida para a peça");
                         }
@@ -162,11 +158,11 @@ public class Main {
                 }
                 else {
                     do{
-                        jogando.ImprimeLista(jogando, jogador1);
+                        mapa.ImprimeLista(jogando, jogador1);
                         System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
                         posicaoPeca = sc.nextInt();
-                        if(posicaoPeca<=18 || posicaoPeca>0){
-                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca);
+                        if(posicaoPeca<=18 && posicaoPeca>0){
+                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                         }else {
                             System.out.println("Escolha uma posição valida para a peça");
                         }
@@ -175,12 +171,52 @@ public class Main {
             }
         }
 
-        gamePlay(jogador1, jogador2);
+        gamePlay(jogador1, jogador2, mapa);
     }
 
-    private static void gamePlay(Jogador jogador1, Jogador jogador2){
-        Mapa mapa = new Mapa();
-        mapa.mapa(jogador1);
+    private static void gamePlay(Jogador jogador1, Jogador jogador2, Mapa mapa){
+            mapa.mapa();
+            int vezJogador = 0;
+            Jogador jogando;
+            Jogador jogandoInimigo;
+            Unidade peca;
+            int ultimaJogada = 0;
+            //while
+
+            if (vezJogador%2 == 0) {
+                jogando = jogador1;
+                jogandoInimigo = jogador2;
+            }else{
+                jogando = jogador2;
+                jogandoInimigo = jogador1;
+            }
+
+            System.out.println("Jogador "+jogando.nome+" é sua vez de jogar!!");
+            System.out.println("""
+                    O que pretende fazer?
+                        [1] Atacar
+                        [2] Se mover
+                    """);
+                    int opcaoJogada = sc.nextInt();
+                    ultimaJogada = opcaoJogada;
+
+                    switch (opcaoJogada){
+                        case 1:
+                            System.out.println("\nPeças disponiveis: ");
+                            jogando.pecasDisponiveis(jogando);
+
+                            System.out.println("A posicao da peça que deseja usar?");
+                            int escolhaPeca = sc.nextInt();
+
+                            peca = jogando.pecas.get(escolhaPeca).getPosicao().getUnidade();
+                            System.out.println("Pecas inimigas dentro do alcance do "+peca.nome+": ");
+
+
+
+                    }
+
+            vezJogador++;
+
     }
 
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Mapa {
-    ArrayList<Posicao> posicoes = new ArrayList<>();
+    ArrayList<Posicao> posicoes = inicializaArrayPreJogadas();
 
     public ArrayList<Posicao> getPosicoes() {
         return posicoes;
@@ -11,30 +11,63 @@ public class Mapa {
         this.posicoes = posicoes;
     }
 
-    public void mapa(Jogador jogador){
-        posicoes = jogador.getPrePosicao();
-        System.out.println("\n====================================\n");
+    public void ImprimeLista(Jogador jogando, Jogador jogador1){
+        System.out.println("=========================================");
         for (Posicao posicaoFor : posicoes) {
-                if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null){
-                    System.out.print("[    ]");
+            if(jogando.equals(jogador1)){
+                if(posicoes.indexOf(posicaoFor)<18){
+                    System.out.print("[ J2 ]");
+                }
+                else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)>=17){
+                    if(posicoes.indexOf(posicaoFor)<10){
+                        System.out.print("[  "+posicoes.indexOf(posicaoFor)+" ]");
+                    }else {
+                        System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                    }
                 }
                 else{
                     System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
                 }
+            }
+            else {
+                if(posicoes.indexOf(posicaoFor)>17){
+                    System.out.print("[ J1 ]");
+                }
+                else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)<=29){
+                    System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                }
+                else{
+                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
+                }
+            }
             if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
                 System.out.println("\n");
 
             }
         }
-        System.out.print("====================================\n");
     }
 
-    public ArrayList<Posicao> inicializaPosicao(Jogador jogador1, Jogador jogador2){
-        ArrayList<Posicao> prePosicaoJ1 = jogador1.getPrePosicao();
-        for (Posicao posicaoJ1:
-             prePosicao) {
+    public void mapa(){
+        for (Posicao posicaoFor : posicoes) {
+            if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null){
+                    System.out.print("[    ]");
+            }
+            else{
+                System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
+            }
+            if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
+                System.out.println("\n");
 
+            }
         }
+    }
+
+    public ArrayList<Posicao> inicializaArrayPreJogadas(){
+        ArrayList<Posicao> newA = new ArrayList<>(36);
+        for (int i = 0; i < 36; i++) {
+            newA.add(new Posicao());
+        }
+        return newA;
     }
 
 }
