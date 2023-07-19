@@ -18,7 +18,7 @@ abstract public class Unidade {
 
     abstract void Atacar(Unidade pecaAtacar);
     abstract ArrayList<Posicao> possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador);
-    abstract ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador);
+    abstract ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca);
     abstract String icon();
 
     public Posicao getPosicao() {

@@ -203,15 +203,15 @@ public class Main {
                     switch (opcaoJogada){
                         case 1:
                             System.out.println("\nPeças disponiveis: ");
-                            jogando.pecasDisponiveis(jogando);
+                            jogando.pecasDisponiveis(jogando, mapa, jogador1);
 
                             System.out.println("A posicao da peça que deseja usar?");
                             int escolhaPeca = sc.nextInt();
 
-                            peca = jogando.pecas.get(escolhaPeca).getPosicao().getUnidade();
+                            peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
                             System.out.println("Pecas inimigas dentro do alcance do "+peca.nome+": ");
 
-
+                            jogando.pecasAtacar(peca, jogandoInimigo,mapa);
 
                     }
 

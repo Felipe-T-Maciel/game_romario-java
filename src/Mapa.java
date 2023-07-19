@@ -70,4 +70,13 @@ public class Mapa {
         return newA;
     }
 
+    public int getPosicaoPeca(Unidade peca){
+        for (int i = 0; i < posicoes.size(); i++) {
+            if(posicoes.get(i).getUnidade() == peca){
+                return i;
+            }
+        }
+        return 0;
+    }
+
 }

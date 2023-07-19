@@ -57,37 +57,87 @@ public class Arqueiro extends Unidade{
     }
 
     @Override
-    ArrayList VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador) {
+    ArrayList VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca) {
 
-        Posicao posicaoAtual = this.getPosicao();
+        int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
-        int posicaoNoMapa = mapa.getPosicoes().indexOf(posicaoAtual);
-
-        int i=5;
-        int j=7;
 
         if(jogandoAgora == jogador1){
-            while(posicoesNoMapa.get(posicaoNoMapa-i) == null && !verificaExtremidade((posicaoNoMapa-i)+1)){
-                i += 5;
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa-i));
-            }
+            int i = posicaoNoMapa;
 
-            while(posicoesNoMapa.get(posicaoNoMapa-j) == null && !verificaExtremidade(posicaoNoMapa-j)){
-                j += 7;
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa-j));
-            }
+            do{
+                i-=7;
 
-        }
-        else {
-            while(posicoesNoMapa.get(posicaoNoMapa+i) == null && !verificaExtremidade(posicaoNoMapa+i)){
-                i += 5;
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa+i));
-            }
+                if(i>=0){
+                    if(posicoesNoMapa.get(i).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(i));
+                    }
+                }
 
-            while(posicoesNoMapa.get(posicaoNoMapa+j) == null && !verificaExtremidade((posicaoNoMapa+j)+1)){
-                j += 7;
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa+j));
-            }
+            }while (i>=0 && !verificaExtremidade(i));
+
+            int l = posicaoNoMapa;
+
+            do{
+
+                if(posicoesNoMapa.get(l).getUnidade() != null){
+                    areaAtaque.add(posicoesNoMapa.get(l));
+                }
+
+                l-=6;
+
+            }while (l>=0);
+
+
+            int j = posicaoNoMapa;
+
+            do{
+
+                if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
+                    areaAtaque.add(posicoesNoMapa.get(j));
+                }
+
+                j-=5;
+
+            }while (j>=0 && !verificaExtremidade(j));
+
+        }else{
+            int i = posicaoNoMapa;
+            int l = posicaoNoMapa;
+            do{
+
+                if(posicoesNoMapa.get(l).getUnidade() != null){
+                    areaAtaque.add(posicoesNoMapa.get(l));
+                }
+
+                l+=6;
+
+            }while (l<36);
+
+            do{
+
+                if(i<36){
+                    if(posicoesNoMapa.get(i).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(i));
+                    }
+                }
+
+                i+=7;
+
+            }while (i<36 && !verificaExtremidade(i+1));
+
+
+            int j = posicaoNoMapa;
+
+            do{
+
+                j+=5;
+
+                if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
+                    areaAtaque.add(posicoesNoMapa.get(j));
+                }
+
+            }while (j<36 && !verificaExtremidade(j));
         }
 
         return areaAtaque;

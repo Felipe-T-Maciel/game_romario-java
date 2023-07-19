@@ -15,20 +15,27 @@ public class Jogador {
         mapa.setPosicoes(newPosicao);
     }
 
-    public void pecasDisponiveis(Jogador jogando){
+    public void pecasDisponiveis(Jogador jogando, Mapa mapa, Jogador jogador1){
         for (Unidade peca:
              jogando.pecas) {
-            System.out.println(jogando.pecas.indexOf(peca)+" - "+ peca.nome);
+            peca.VerificaAreaAtaque(mapa, jogando, jogador1, peca);
+        }
+        for (Unidade peca:
+             jogando.pecas) {
+            System.out.println(mapa.getPosicaoPeca(peca)+" - "+ peca.nome);
         }
     }
 
-//    public void pecasAtacar(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
-//        for (Unidade pecaInimiga:
-//             jogadorInimigo.pecas) {
-//            if(peca.areaAtaque.get(mapa.getPosicoes().indexOf(pecaInimiga)).getUnidade() != null){
-//                System.out.println("" +
-//                        "");
-//            }
-//        }
-//    }
+    public void pecasAtacar(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
+
+        for (Posicao pecaInimiga:
+             peca.areaAtaque) {
+            for (Unidade pecaContra:
+                    jogadorInimigo.pecas) {
+                if (pecaContra == pecaInimiga.getUnidade()) {
+                    System.out.println(mapa.getPosicaoPeca(pecaInimiga.getUnidade())+" - "+pecaInimiga.getUnidade().nome);
+                }
+            }
+        }
+    }
 }

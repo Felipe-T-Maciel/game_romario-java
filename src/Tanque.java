@@ -45,7 +45,7 @@ public class     Tanque extends Unidade{
     }
 
     @Override
-    ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador) {
+    ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca) {
         Posicao posicaoAtual = this.getPosicao();
 
         int posicaoNoMapa = mapa.getPosicoes().indexOf(posicaoAtual);
