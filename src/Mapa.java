@@ -91,11 +91,10 @@ public class Mapa {
                     System.out.print("[ "+posicoes.indexOf(posicao)+" ]");
                 }
             }
-
-            else if(posicoes.get(posicoes.indexOf(posicao)).getUnidade() != null){
+            else if(posicoes.get(posicoes.indexOf(posicao)).getUnidade() != null && posicao.getUnidade() != peca){
                 System.out.print("[ "+posicoes.get(posicoes.indexOf(posicao)).getUnidade().icon()+" ]");
             }
-            else {
+            else if(posicao.getUnidade() != peca){
                 System.out.print("[    ]");
             }
             if(posicao.getUnidade() == peca){

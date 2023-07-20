@@ -6,8 +6,8 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Jogador jogador1 = new Jogador("felipe");
-        Jogador jogador2 = new Jogador("julio");
+        Jogador jogador1 = new Jogador("");
+        Jogador jogador2 = new Jogador("");
 
 
         menu(jogador1, jogador2);
@@ -121,7 +121,7 @@ public class Main {
     private static void posicaoPecaJogador(Jogador jogador1, Jogador jogador2) {
         Mapa mapa = new Mapa();
         for (int i = 0; i < 2; i++) {
-            Jogador jogando = new Jogador("");
+            Jogador jogando;
 
             if(i==0){
                 jogando = jogador1;
@@ -206,9 +206,9 @@ public class Main {
                                 Unidade pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
                                 peca.Atacar(pecaInimiga, jogandoInimigo, mapa);
                                 if (pecaInimiga.getVida() < 0) {
-                                    System.out.println("Peca inimiga morta");
+                                    System.out.println("Peça morta");
                                 } else {
-                                    System.out.println("Pena inimiga: " + pecaInimiga.nome + "| vida: " + pecaInimiga.getVida());
+                                    System.out.println("Peça inimiga: " + pecaInimiga.nome + " | vida: " + pecaInimiga.getVida());
                                 }
                             }else {
                                 System.out.println("A posição da peça escolhida é invalida");
@@ -243,11 +243,11 @@ public class Main {
 
     public static boolean verificaVitoria(Jogador jogador1, Jogador jogador2){
         if(jogador1.pecas.size()<=0){
-            System.out.println("Jogador 2 venceu");
+            System.out.println("Jogador "+jogador2.nome+" venceu!!!");
             return false;
         }
         else if(jogador2.pecas.size()<=0) {
-            System.out.println("Jogador 1 venceu");
+            System.out.println("Jogador "+jogador1.nome+" venceu!!!");
             return false;
         }
 

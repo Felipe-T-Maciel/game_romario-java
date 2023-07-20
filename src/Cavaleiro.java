@@ -20,63 +20,14 @@ public class Cavaleiro extends Unidade {
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
         possiveisPosicoes.removeAll(posicoesNoMapa);
-        if(jogandoAgora == jogador){
+        int[] movimentos = { -7, -5, 5, 7 };
 
-            int i = posicaoNoMapa;
-
-            do{
-                i-=7;
-                if(i>=0){
-                    if(posicoesNoMapa.get(i).getUnidade() == null){
-                        possiveisPosicoes.add(posicoesNoMapa.get(i));
-                    }
-                }
-
-            }while (i>=0 && !verificaExtremidade(i));
-
-
-
-            int j = posicaoNoMapa;
-
-            do{
-                j-=5;
-
-                if(j>=0){
-                    if(posicoesNoMapa.get(j).getUnidade() == null && !verificaExtremidade(j)){
-                        possiveisPosicoes.add(posicoesNoMapa.get(j));
-                    }
-                }
-
-            }while (j>=0 && !verificaExtremidade(j));
-
-            i = posicaoNoMapa;
-            do{
-
-                i+=7;
-
-                if(i<36){
-                    if(posicoesNoMapa.get(i).getUnidade() == null){
-                        possiveisPosicoes.add(posicoesNoMapa.get(i));
-                    }
-                }
-
-            }while (i<36 && !verificaExtremidade(i+1));
-
-
-            j = posicaoNoMapa;
-
-            do{
-
-                j+=5;
-                if(j<36){
-                    if(posicoesNoMapa.get(j).getUnidade() == null && !verificaExtremidade(j)){
-                        possiveisPosicoes.add(posicoesNoMapa.get(j));
-                    }
-                }
-
-
-
-            }while (j<36 && !verificaExtremidade(j));
+        for (int movimento : movimentos) {
+            int novaPosicao = posicaoNoMapa + movimento;
+            if (novaPosicao >= 0 && novaPosicao < 36
+                    && !verificaExtremidade(novaPosicao) && posicoesNoMapa.get(novaPosicao).getUnidade() == null) {
+                possiveisPosicoes.add(posicoesNoMapa.get(novaPosicao));
+            }
         }
 
         return possiveisPosicoes;
@@ -88,45 +39,54 @@ public class Cavaleiro extends Unidade {
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
         areaAtaque.removeAll(posicoesNoMapa);
-        if(jogandoAgora == jogador) {
 
-            if(posicaoNoMapa-6 > 0){
-                if (posicoesNoMapa.get(posicaoNoMapa - 6).getUnidade() != null) {
-                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 6));
-                }
+        if(posicaoNoMapa-6 > 0){
+            if (posicoesNoMapa.get(posicaoNoMapa - 6).getUnidade() != null) {
+                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 6));
             }
-            if(posicaoNoMapa-12 > 0){
-                if (posicoesNoMapa.get(posicaoNoMapa - 12).getUnidade() != null) {
-                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 12));
-                }
-            }
-            if(posicaoNoMapa-5 > 0){
-                if (posicoesNoMapa.get(posicaoNoMapa -5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa-5)) {
-                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 5));
-                }
-            }
-
-            if(posicaoNoMapa-7 > 0){
-                if (posicoesNoMapa.get(posicaoNoMapa - 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa)) {
-                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 7));
-                }
-            }
-
         }
-        else {
+        if(posicaoNoMapa-12 > 0){
+            if (posicoesNoMapa.get(posicaoNoMapa - 12).getUnidade() != null) {
+                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 12));
+            }
+        }
+        if(posicaoNoMapa-5 > 0){
+            if (posicoesNoMapa.get(posicaoNoMapa -5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa-5)) {
+                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 5));
+            }
+        }
+
+        if(posicaoNoMapa-7 > 0){
+            if (posicoesNoMapa.get(posicaoNoMapa - 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa)) {
+                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 7));
+            }
+        }
+
+        if(posicaoNoMapa+6 < 36){
             if (posicoesNoMapa.get(posicaoNoMapa + 6).getUnidade() != null) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 6));
             }
+        }
+
+        if(posicaoNoMapa+12 < 36){
             if (posicoesNoMapa.get(posicaoNoMapa + 12).getUnidade() != null) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 12));
             }
+        }
+
+        if(posicaoNoMapa+5 < 36){
             if (posicoesNoMapa.get(posicaoNoMapa + 5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+5)) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 5));
             }
+        }
+
+        if(posicaoNoMapa+7 < 36){
             if (posicoesNoMapa.get(posicaoNoMapa + 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+1)) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 7));
             }
         }
+
+
         return areaAtaque;
     }
 

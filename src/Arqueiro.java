@@ -95,6 +95,7 @@ public class Arqueiro extends Unidade{
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
+        possiveisPosicoes.removeAll(posicoesNoMapa);
         if(jogandoAgora == jogador){
             int i = posicaoNoMapa;
 
@@ -137,6 +138,7 @@ public class Arqueiro extends Unidade{
         }else{
             int i = posicaoNoMapa;
             int l = posicaoNoMapa;
+
             do{
 
                 if(posicoesNoMapa.get(l).getUnidade() != null){
@@ -164,11 +166,13 @@ public class Arqueiro extends Unidade{
 
             do{
 
-                if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
-                    areaAtaque.add(posicoesNoMapa.get(j));
-                }
-
                 j+=5;
+
+                if(posicaoNoMapa+5 < 36){
+                    if(posicoesNoMapa.get(j).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(j));
+                    }
+                }
 
             }while (j<36 && !verificaExtremidade(j));
         }
