@@ -19,22 +19,24 @@ public class Mapa {
                     System.out.print("[ J2 ]");
                 }
                 else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)>=17){
-                    if(posicoes.indexOf(posicaoFor)<10){
-                        System.out.print("[ 0"+posicoes.indexOf(posicaoFor)+" ]");
-                    }else {
-                        System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
-                    }
+                    System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
                 }
                 else{
                     System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
                 }
             }
             else {
+
                 if(posicoes.indexOf(posicaoFor)>17){
                     System.out.print("[ J1 ]");
                 }
-                else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)<=29){
-                    System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)<=17){
+                    if(posicoes.indexOf(posicaoFor)<10){
+                        System.out.print("[ 0"+posicoes.indexOf(posicaoFor)+" ]");
+                    }
+                    else {
+                        System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                    }
                 }
                 else{
                     System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
@@ -89,8 +91,15 @@ public class Mapa {
                     System.out.print("[ "+posicoes.indexOf(posicao)+" ]");
                 }
             }
+
+            else if(posicoes.get(posicoes.indexOf(posicao)).getUnidade() != null){
+                System.out.print("[ "+posicoes.get(posicoes.indexOf(posicao)).getUnidade().icon()+" ]");
+            }
             else {
                 System.out.print("[    ]");
+            }
+            if(posicao.getUnidade() == peca){
+                System.out.print("[ XX ]");
             }
             if ((posicoes.indexOf(posicao)+1)%6 == 0){
                 System.out.print("\n");

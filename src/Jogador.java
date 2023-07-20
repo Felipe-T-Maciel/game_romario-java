@@ -27,15 +27,17 @@ public class Jogador {
         }
     }
 
-    public void pecasAtacar(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
+    public boolean pecasAtacar(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
         for (Posicao pecaInimiga:
              peca.areaAtaque) {
             for (Unidade pecaContra:
                     jogadorInimigo.pecas) {
                 if (pecaContra == pecaInimiga.getUnidade()) {
                     System.out.println(mapa.getPosicaoPeca(pecaInimiga.getUnidade())+" - "+pecaInimiga.getUnidade().nome);
+                    return true;
                 }
             }
         }
+        return false;
     }
 }

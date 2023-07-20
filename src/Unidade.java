@@ -17,7 +17,14 @@ abstract public class Unidade {
         this.nome = nome;
     }
 
-    abstract void Atacar(Unidade pecaAtacar);
+    public void pecaMorta(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
+        if(peca.getVida() <= 0){
+            jogadorInimigo.pecas.remove(peca);
+            mapa.getPosicoes().get(mapa.getPosicaoPeca(peca)).setUnidade(null);
+        }
+    }
+
+    abstract void Atacar(Unidade pecaAtacar, Jogador jogadorInimigo, Mapa mapa);
     abstract ArrayList<Posicao> possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca);
     abstract ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca);
     abstract String icon();

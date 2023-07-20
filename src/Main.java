@@ -71,7 +71,7 @@ public class Main {
                         switch (jogadores) {
                             case 1 -> {
                                 if (i < 1) {
-                                    jogador1.pecas.add(new Mago(100, 35, "Mago"));
+                                    jogador1.pecas.add(new Mago(100, 100, "Mago"));
                                 } else {
                                     jogador2.pecas.add(new Mago(100, 35, "Mago"));
                                 }
@@ -134,28 +134,26 @@ public class Main {
             for (int j = 0; j < jogando.pecas.size(); j++) {
                 int posicaoPeca = 0;
                 if (jogando.equals(jogador1)){
-                    do{
-                        mapa.ImprimeLista(jogando, jogador1);
-                        System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
-                        posicaoPeca = sc.nextInt();
-                        if(posicaoPeca>=18 && posicaoPeca<36){
-                            jogador1.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
-                        }else {
-                            System.out.println("Escolha uma posição valida para a peça");
-                        }
-                    }while (posicaoPeca<18 || posicaoPeca>35);
+                    mapa.ImprimeLista(jogando, jogador1);
+                    System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
+                    posicaoPeca = sc.nextInt();
+                    if(posicaoPeca>=18 && posicaoPeca<36 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
+                        jogador1.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
+                    }else {
+                        System.out.println("Escolha uma posição valida para a peça");
+                        j--;
+                    }
                 }
                 else {
-                    do{
-                        mapa.ImprimeLista(jogando, jogador1);
-                        System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
-                        posicaoPeca = sc.nextInt();
-                        if(posicaoPeca<18 && posicaoPeca>0){
-                            jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
-                        }else {
-                            System.out.println("Escolha uma posição valida para a peça");
-                        }
-                    }while (posicaoPeca>=18 || posicaoPeca<0);
+                    mapa.ImprimeLista(jogando, jogador1);
+                    System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
+                    posicaoPeca = sc.nextInt();
+                    if(posicaoPeca<18 && posicaoPeca>0 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
+                        jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
+                    }else {
+                        System.out.println("Escolha uma posição valida para a peça");
+                        j--;
+                    }
                 }
             }
         }
@@ -186,47 +184,58 @@ public class Main {
             System.out.println("A posicao da peça que deseja usar:");
             int escolhaPeca = sc.nextInt();
 
-            peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
+            if(mapa.getPosicoes().get(escolhaPeca).getUnidade() != null && jogando.pecas.contains(mapa.getPosicoes().get(escolhaPeca).getUnidade())){
+                peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
 
-            System.out.println("""
+                System.out.println("""
                 O que pretende fazer?
                     [1] Atacar
                     [2] Se mover
                 """);
-            int opcaoJogada = sc.nextInt();
+                int opcaoJogada = sc.nextInt();
 
-            switch (opcaoJogada){
-                case 1:
+                switch (opcaoJogada) {
+                    case 1 -> {
+                        System.out.println("Pecas inimigas dentro do alcance do " + peca.nome + ": ");
+                        if (jogando.pecasAtacar(peca, jogandoInimigo, mapa)) {
+                            System.out.println("A posicao da peça que deseja atacar: ");
+                            int posicaoPecaInimiga = sc.nextInt();
+                            if
+                            (mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade() != null &&
+                                    jogandoInimigo.pecas.contains(mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade())){
+                                Unidade pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
+                                peca.Atacar(pecaInimiga, jogandoInimigo, mapa);
+                                if (pecaInimiga.getVida() < 0) {
+                                    System.out.println("Peca inimiga morta");
+                                } else {
+                                    System.out.println("Pena inimiga: " + pecaInimiga.nome + "| vida: " + pecaInimiga.getVida());
+                                }
+                            }else {
+                                System.out.println("A posição da peça escolhida é invalida");
+                            }
 
-                    System.out.println("Pecas inimigas dentro do alcance do "+peca.nome+": ");
-                    jogando.pecasAtacar(peca, jogandoInimigo,mapa);
-
-                    System.out.println("A posicao da peça que deseja atacar: ");
-                    int posicaoPecaInimiga = sc.nextInt();
-                    Unidade pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
-                    peca.Atacar(pecaInimiga);
-                    if(pecaInimiga.getVida()<0){
-                        System.out.println("Peca inimiga morta");
-                    }else {
-                        System.out.println("Pena inimiga: "+pecaInimiga.nome + "| vida: "+pecaInimiga.getVida());
+                        } else {
+                            System.out.println("Nenhuma peça na area de ataque do " + peca.nome);
+                        }
                     }
-                    break;
-                case 2:
-                    System.out.println("Seus movimentos possiveis são: ");
-                    mapa.possiveisMovimentos(peca);
-
-                    System.out.println("Para onde deseja se mover: ");
-                    int movimento = sc.nextInt();
-
-                    if(peca.possiveisPosicoes.contains(mapa.posicoes.get(movimento))){
-                        peca.mover(mapa, peca, movimento);
-                        System.out.println("peca movida");
-                    }else {
-                        System.out.println("Movimento invalido");
+                    case 2 -> {
+                        System.out.println("Seus movimentos possiveis são: ");
+                        mapa.possiveisMovimentos(peca);
+                        System.out.println("Para onde deseja se mover: ");
+                        int movimento = sc.nextInt();
+                        if (peca.possiveisPosicoes.contains(mapa.posicoes.get(movimento))) {
+                            peca.mover(mapa, peca, movimento);
+                            System.out.println("peca movida");
+                        } else {
+                            System.out.println("Movimento invalido");
+                        }
                     }
+                }
+
+                vezJogador++;
+            }else {
+                System.out.println("Escolha uma posição valida");
             }
-
-            vezJogador++;
 
         }while(verificaVitoria(jogador1, jogador2));
 

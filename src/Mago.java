@@ -9,10 +9,11 @@ public class Mago extends Unidade{
 
 
     @Override
-    void Atacar(Unidade pecaAtacar) {
+    void Atacar(Unidade pecaAtacar, Jogador jogadorInimigo, Mapa mapa) {
         int vida = pecaAtacar.getVida();
         vida -= 35;
         pecaAtacar.setVida(vida);
+        pecaMorta(pecaAtacar, jogadorInimigo, mapa);
     }
 
     @Override
@@ -20,32 +21,49 @@ public class Mago extends Unidade{
 
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
+        possiveisPosicoes.removeAll(posicoesNoMapa);
 
         if(jogandoAgora == jogador1){
-            if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade() == null){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
+            if(posicaoNoMapa-6>0){
+                if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade() == null){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
+            if(posicaoNoMapa+6<36){
+                if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
+            if(posicaoNoMapa-1>0){
+                if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
+            if(posicaoNoMapa+1<36){
+                if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
+                }
             }
         }else {
-            if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
+            if(posicaoNoMapa+6<36){
+                if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade()  == null){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
+            if(posicaoNoMapa-6 >= 0){
+                if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade()  == null){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
+            if(posicaoNoMapa-1 >= 0){
+                if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
+                }
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
-                possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
+            if(posicaoNoMapa+1<36){
+                if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
+                    possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
+                }
             }
         }
 
