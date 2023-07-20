@@ -148,7 +148,7 @@ public class Main {
                     mapa.ImprimeLista(jogando, jogador1);
                     System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
                     posicaoPeca = sc.nextInt();
-                    if(posicaoPeca<18 && posicaoPeca>0 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
+                    if(posicaoPeca<18 && posicaoPeca>=0 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
                         jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                     }else {
                         System.out.println("Escolha uma posição valida para a peça");

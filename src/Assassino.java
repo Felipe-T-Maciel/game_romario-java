@@ -117,17 +117,25 @@ public class Assassino extends Unidade{
 
         }
         else {
-            if (posicoesNoMapa.get(posicaoNoMapa + 6).getUnidade() != null) {
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 6));
+            if(posicaoNoMapa+6<36){
+                if (posicoesNoMapa.get(posicaoNoMapa + 6).getUnidade() != null) {
+                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 6));
+                }
             }
-            if (posicoesNoMapa.get(posicaoNoMapa + 12).getUnidade() != null) {
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 12));
+            if(posicaoNoMapa+12<36){
+                if (posicoesNoMapa.get(posicaoNoMapa + 12).getUnidade() != null) {
+                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 12));
+                }
             }
-            if (posicoesNoMapa.get(posicaoNoMapa + 5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+5)) {
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 5));
+            if(posicaoNoMapa+5<36){
+                if (posicoesNoMapa.get(posicaoNoMapa + 5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+5)) {
+                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 5));
+                }
             }
-            if (posicoesNoMapa.get(posicaoNoMapa + 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+1)) {
-                areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 7));
+            if(posicaoNoMapa+7<36){
+                if (posicoesNoMapa.get(posicaoNoMapa + 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa+1)) {
+                    areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa + 7));
+                }
             }
         }
 

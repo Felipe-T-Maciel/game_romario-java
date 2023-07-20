@@ -98,8 +98,10 @@ public class Mago extends Unidade{
 
             do{
 
-                if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
-                    areaAtaque.add(posicoesNoMapa.get(j));
+                if(j>=0){
+                    if(posicoesNoMapa.get(j).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(j));
+                    }
                 }
 
                 j-=5;
@@ -126,8 +128,10 @@ public class Mago extends Unidade{
 
                 j+=5;
 
-                if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
-                    areaAtaque.add(posicoesNoMapa.get(j));
+                if(j<36){
+                    if(posicoesNoMapa.get(j).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(j));
+                    }
                 }
 
             }while (j<36 && !verificaExtremidade(j));
