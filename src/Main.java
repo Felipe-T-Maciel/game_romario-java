@@ -54,19 +54,16 @@ public class Main {
                         System.out.println("""
                         Escolha seus campeões:
 
-                        Tipo longo alcance:
-
-                            [1] Mago
-                            [2] Arqueiro
-
-                        Tipo curto alcance:
-
-                            [3] Assassino
-                            [4] Cavaleiro
-
-                        Tanque:
-
-                            [5] Tanque-Wesly
+                            Tipo longo alcance:
+    
+                                [1] Mago
+                                [2] Arqueiro
+    
+                            Tipo curto alcance:
+    
+                                [3] Assassino
+                                [4] Cavaleiro
+                            
                         ________________________
                         >""");
                         int jogadores = sc.nextInt();
@@ -99,14 +96,6 @@ public class Main {
                                     jogador1.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
                                 } else {
                                     jogador2.pecas.add(new Cavaleiro(60, 60, "Cavaleiro"));
-
-                                }
-                            }
-                            case 5 -> {
-                                if (i < 1) {
-                                    jogador1.pecas.add(new Tanque(200, 5, "Tanque"));
-                                } else {
-                                    jogador2.pecas.add(new Tanque(200, 5, "Tanque"));
 
                                 }
                             }
@@ -149,24 +138,24 @@ public class Main {
                         mapa.ImprimeLista(jogando, jogador1);
                         System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
                         posicaoPeca = sc.nextInt();
-                        if(posicaoPeca>=19 && posicaoPeca<36){
+                        if(posicaoPeca>=18 && posicaoPeca<36){
                             jogador1.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                         }else {
                             System.out.println("Escolha uma posição valida para a peça");
                         }
-                    }while (posicaoPeca<19 || posicaoPeca>36);
+                    }while (posicaoPeca<18 || posicaoPeca>35);
                 }
                 else {
                     do{
                         mapa.ImprimeLista(jogando, jogador1);
                         System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
                         posicaoPeca = sc.nextInt();
-                        if(posicaoPeca<=18 && posicaoPeca>0){
+                        if(posicaoPeca<18 && posicaoPeca>0){
                             jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                         }else {
                             System.out.println("Escolha uma posição valida para a peça");
                         }
-                    }while (posicaoPeca>18 || posicaoPeca<0);
+                    }while (posicaoPeca>=18 || posicaoPeca<0);
                 }
             }
         }
@@ -175,13 +164,12 @@ public class Main {
     }
 
     private static void gamePlay(Jogador jogador1, Jogador jogador2, Mapa mapa){
+        int vezJogador = 0;
+        Jogador jogando;
+        Jogador jogandoInimigo;
+        Unidade peca;
+        do{
             mapa.mapa();
-            int vezJogador = 0;
-            Jogador jogando;
-            Jogador jogandoInimigo;
-            Unidade peca;
-            int ultimaJogada = 0;
-            //while
 
             if (vezJogador%2 == 0) {
                 jogando = jogador1;
@@ -192,31 +180,69 @@ public class Main {
             }
 
             System.out.println("Jogador "+jogando.nome+" é sua vez de jogar!!");
+            System.out.println("\nPeças disponiveis: ");
+            jogando.pecasDisponiveis(jogando, mapa, jogador1);
+
+            System.out.println("A posicao da peça que deseja usar:");
+            int escolhaPeca = sc.nextInt();
+
+            peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
+
             System.out.println("""
-                    O que pretende fazer?
-                        [1] Atacar
-                        [2] Se mover
-                    """);
-                    int opcaoJogada = sc.nextInt();
-                    ultimaJogada = opcaoJogada;
+                O que pretende fazer?
+                    [1] Atacar
+                    [2] Se mover
+                """);
+            int opcaoJogada = sc.nextInt();
 
-                    switch (opcaoJogada){
-                        case 1:
-                            System.out.println("\nPeças disponiveis: ");
-                            jogando.pecasDisponiveis(jogando, mapa, jogador1);
+            switch (opcaoJogada){
+                case 1:
 
-                            System.out.println("A posicao da peça que deseja usar?");
-                            int escolhaPeca = sc.nextInt();
+                    System.out.println("Pecas inimigas dentro do alcance do "+peca.nome+": ");
+                    jogando.pecasAtacar(peca, jogandoInimigo,mapa);
 
-                            peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
-                            System.out.println("Pecas inimigas dentro do alcance do "+peca.nome+": ");
-
-                            jogando.pecasAtacar(peca, jogandoInimigo,mapa);
-
+                    System.out.println("A posicao da peça que deseja atacar: ");
+                    int posicaoPecaInimiga = sc.nextInt();
+                    Unidade pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
+                    peca.Atacar(pecaInimiga);
+                    if(pecaInimiga.getVida()<0){
+                        System.out.println("Peca inimiga morta");
+                    }else {
+                        System.out.println("Pena inimiga: "+pecaInimiga.nome + "| vida: "+pecaInimiga.getVida());
                     }
+                    break;
+                case 2:
+                    System.out.println("Seus movimentos possiveis são: ");
+                    mapa.possiveisMovimentos(peca);
+
+                    System.out.println("Para onde deseja se mover: ");
+                    int movimento = sc.nextInt();
+
+                    if(peca.possiveisPosicoes.contains(mapa.posicoes.get(movimento))){
+                        peca.mover(mapa, peca, movimento);
+                        System.out.println("peca movida");
+                    }else {
+                        System.out.println("Movimento invalido");
+                    }
+            }
 
             vezJogador++;
 
+        }while(verificaVitoria(jogador1, jogador2));
+
+    }
+
+    public static boolean verificaVitoria(Jogador jogador1, Jogador jogador2){
+        if(jogador1.pecas.size()<=0){
+            System.out.println("Jogador 2 venceu");
+            return false;
+        }
+        else if(jogador2.pecas.size()<=0) {
+            System.out.println("Jogador 1 venceu");
+            return false;
+        }
+
+        return true;
     }
 
 }

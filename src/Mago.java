@@ -16,37 +16,35 @@ public class Mago extends Unidade{
     }
 
     @Override
-    ArrayList possiveismovimentos(Mapa mapa,Jogador jogandoAgora, Jogador jogador) {
+    ArrayList possiveismovimentos(Mapa mapa,Jogador jogandoAgora, Jogador jogador,Unidade peca) {
 
-        Posicao posicaoAtual = this.getPosicao();
-
-        int posicaoNoMapa = mapa.getPosicoes().indexOf(posicaoAtual);
+        int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
         if(jogandoAgora == jogador1){
-            if(posicoesNoMapa.get(posicaoNoMapa-6) == null){
+            if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade() == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+6) == null){
+            if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+1) == null && !verificaExtremidade(posicaoNoMapa+1)){
+            if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-1) == null && !verificaExtremidade(posicaoNoMapa)){
+            if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
             }
         }else {
-            if(posicoesNoMapa.get(posicaoNoMapa+6) == null){
+            if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-6) == null){
+            if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade()  == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-1) == null && !verificaExtremidade(posicaoNoMapa)){
+            if(posicoesNoMapa.get(posicaoNoMapa-1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa)){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+1) == null && !verificaExtremidade(posicaoNoMapa+1)){
+            if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
             }
         }

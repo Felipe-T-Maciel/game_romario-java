@@ -5,10 +5,6 @@ public class Arqueiro extends Unidade{
         super(vida, danoAtaque, nome);
     }
 
-    Jogador jogador1;
-    Jogador jogandoAgora;
-
-
     @Override
     void Atacar(Unidade pecaAtacar) {
         int vida = pecaAtacar.getVida();
@@ -17,18 +13,18 @@ public class Arqueiro extends Unidade{
     }
 
     @Override
-    ArrayList possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador) {
+    ArrayList possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca) {
 
         Posicao posicaoAtual = this.getPosicao();
 
         int posicaoNoMapa = mapa.getPosicoes().indexOf(posicaoAtual);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
-        if(jogandoAgora == jogador1){
+        if(jogandoAgora == jogador){
             if(posicoesNoMapa.get(posicaoNoMapa-8) == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-8));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa+8) == null && (posicaoNoMapa+8) < 72){
+            if(posicoesNoMapa.get(posicaoNoMapa+8) == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+8));
             }
             if(posicoesNoMapa.get(posicaoNoMapa+1) == null && !verificaExtremidade(posicaoNoMapa+1)){
@@ -41,7 +37,7 @@ public class Arqueiro extends Unidade{
             if(posicoesNoMapa.get(posicaoNoMapa+8) == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+8));
             }
-            if(posicoesNoMapa.get(posicaoNoMapa-8) == null && (posicaoNoMapa-8) < 72){
+            if(posicoesNoMapa.get(posicaoNoMapa-8) == null){
                 possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+8));
             }
             if(posicoesNoMapa.get(posicaoNoMapa-1) == null && !verificaExtremidade(posicaoNoMapa-1)){
@@ -62,7 +58,7 @@ public class Arqueiro extends Unidade{
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
-        if(jogandoAgora == jogador1){
+        if(jogandoAgora == jogador){
             int i = posicaoNoMapa;
 
             do{
@@ -131,11 +127,11 @@ public class Arqueiro extends Unidade{
 
             do{
 
-                j+=5;
-
                 if(posicoesNoMapa.get(j).getUnidade() != null && !verificaExtremidade(j)){
                     areaAtaque.add(posicoesNoMapa.get(j));
                 }
+
+                j+=5;
 
             }while (j<36 && !verificaExtremidade(j));
         }

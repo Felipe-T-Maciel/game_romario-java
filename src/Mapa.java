@@ -20,7 +20,7 @@ public class Mapa {
                 }
                 else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)>=17){
                     if(posicoes.indexOf(posicaoFor)<10){
-                        System.out.print("[  "+posicoes.indexOf(posicaoFor)+" ]");
+                        System.out.print("[ 0"+posicoes.indexOf(posicaoFor)+" ]");
                     }else {
                         System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
                     }
@@ -41,7 +41,7 @@ public class Mapa {
                 }
             }
             if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
-                System.out.println("\n");
+                System.out.print("\n");
 
             }
         }
@@ -56,7 +56,7 @@ public class Mapa {
                 System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
             }
             if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
-                System.out.println("\n");
+                System.out.print("\n");
 
             }
         }
@@ -77,6 +77,27 @@ public class Mapa {
             }
         }
         return 0;
+    }
+
+    public void possiveisMovimentos(Unidade peca){
+        for (Posicao posicao:
+             posicoes) {
+            if(peca.possiveisPosicoes.contains(posicao)){
+                if(posicoes.indexOf(posicao)<10){
+                    System.out.print("[ 0"+posicoes.indexOf(posicao)+" ]");
+                }else {
+                    System.out.print("[ "+posicoes.indexOf(posicao)+" ]");
+                }
+            }
+            else {
+                System.out.print("[    ]");
+            }
+            if ((posicoes.indexOf(posicao)+1)%6 == 0){
+                System.out.print("\n");
+            }
+        }
+
+
     }
 
 }

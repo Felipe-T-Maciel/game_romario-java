@@ -13,7 +13,7 @@ public class Cavaleiro extends Unidade {
     }
 
     @Override
-    ArrayList<Posicao> possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador) {
+    ArrayList<Posicao> possiveismovimentos(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca) {
         Posicao posicaoAtual = this.getPosicao();
 
         int posicaoNoMapa = mapa.getPosicoes().indexOf(posicaoAtual);

@@ -19,6 +19,7 @@ public class Jogador {
         for (Unidade peca:
              jogando.pecas) {
             peca.VerificaAreaAtaque(mapa, jogando, jogador1, peca);
+            peca.possiveismovimentos(mapa,jogando,jogador1,peca);
         }
         for (Unidade peca:
              jogando.pecas) {
@@ -27,7 +28,6 @@ public class Jogador {
     }
 
     public void pecasAtacar(Unidade peca, Jogador jogadorInimigo, Mapa mapa){
-
         for (Posicao pecaInimiga:
              peca.areaAtaque) {
             for (Unidade pecaContra:
