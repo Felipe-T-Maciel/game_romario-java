@@ -187,6 +187,10 @@ public class Main {
             if(mapa.getPosicoes().get(escolhaPeca).getUnidade() != null && jogando.pecas.contains(mapa.getPosicoes().get(escolhaPeca).getUnidade())){
                 peca = mapa.getPosicoes().get(escolhaPeca).getUnidade();
 
+                System.out.println("Peças inimigas na zona de ataque: ");
+                if (!jogando.pecasAtacar(peca, jogandoInimigo, mapa)) {
+                    System.out.println("Nenhuma pessoa na zona de ataque do "+peca.nome);
+                }
                 System.out.println("""
                 O que pretende fazer?
                     [1] Atacar
@@ -196,27 +200,30 @@ public class Main {
 
                 switch (opcaoJogada) {
                     case 1 -> {
-                        System.out.println("Pecas inimigas dentro do alcance do " + peca.nome + ": ");
-                        if (jogando.pecasAtacar(peca, jogandoInimigo, mapa)) {
-                            System.out.println("A posicao da peça que deseja atacar: ");
-                            int posicaoPecaInimiga = sc.nextInt();
-                            if
-                            (mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade() != null &&
-                                    jogandoInimigo.pecas.contains(mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade())){
-                                Unidade pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
-                                peca.Atacar(pecaInimiga, jogandoInimigo, mapa);
-                                if (pecaInimiga.getVida() < 0) {
-                                    System.out.println("Peça morta");
-                                } else {
-                                    System.out.println("Peça inimiga: " + pecaInimiga.nome + " | vida: " + pecaInimiga.getVida());
+                        Unidade pecaInimiga = null;
+                            if (jogando.pecasAtacar(peca, jogandoInimigo, mapa)) {
+                                System.out.println("A posicao da peça que deseja atacar: ");
+                                int posicaoPecaInimiga = sc.nextInt();
+                                if
+                                (mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade() != null &&
+                                        jogandoInimigo.pecas.contains(mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade())){
+                                    if(peca.areaAtaque.contains(mapa.getPosicoes().get(posicaoPecaInimiga))){
+                                        pecaInimiga = mapa.getPosicoes().get(posicaoPecaInimiga).getUnidade();
+                                        peca.Atacar(pecaInimiga, jogandoInimigo, mapa);
+                                    }
+                                    if(pecaInimiga!=null){
+                                        if (pecaInimiga.getVida() < 0) {
+                                            System.out.println("Peça morta");
+                                        } else {
+                                            System.out.println("Peça inimiga: " + pecaInimiga.nome + " | vida: " + pecaInimiga.getVida());
+                                        }
+                                    }
+                                }else {
+                                    System.out.println("A posição da peça escolhida é invalida");
                                 }
-                            }else {
-                                System.out.println("A posição da peça escolhida é invalida");
+                            } else {
+                                System.out.println("Nenhuma peça na area de ataque do " + peca.nome);
                             }
-
-                        } else {
-                            System.out.println("Nenhuma peça na area de ataque do " + peca.nome);
-                        }
                     }
                     case 2 -> {
                         System.out.println("Seus movimentos possiveis são: ");
