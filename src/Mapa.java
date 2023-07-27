@@ -16,30 +16,38 @@ public class Mapa {
         for (Posicao posicaoFor : posicoes) {
             if(jogando.equals(jogador1)){
                 if(posicoes.indexOf(posicaoFor)<18){
-                    System.out.print("[ J2 ]");
+                    System.out.print("[  J2  ]");
                 }
                 else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)>=17){
-                    System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                    System.out.print("[  "+posicoes.indexOf(posicaoFor)+"  ]");
                 }
                 else{
-                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
+                    if(posicoes.indexOf(posicaoFor)<10){
+                        System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+"0"+posicoes.indexOf(posicaoFor)+" ]");
+                    }else {
+                        System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+posicoes.indexOf(posicaoFor)+" ]");
+                    }
                 }
             }
             else {
 
                 if(posicoes.indexOf(posicaoFor)>17){
-                    System.out.print("[ J1 ]");
+                    System.out.print("[  J1  ]");
                 }
                 else if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null && posicoes.indexOf(posicaoFor)<=17){
                     if(posicoes.indexOf(posicaoFor)<10){
-                        System.out.print("[ 0"+posicoes.indexOf(posicaoFor)+" ]");
+                        System.out.print("[  0"+posicoes.indexOf(posicaoFor)+"  ]");
                     }
                     else {
-                        System.out.print("[ "+posicoes.indexOf(posicaoFor)+" ]");
+                        System.out.print("[  "+posicoes.indexOf(posicaoFor)+"  ]");
                     }
                 }
                 else{
-                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
+                    if(posicoes.indexOf(posicaoFor)<10){
+                        System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+"0"+posicoes.indexOf(posicaoFor)+" ]");
+                    }else {
+                        System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+posicoes.indexOf(posicaoFor)+" ]");
+                    }
                 }
             }
             if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
@@ -52,10 +60,14 @@ public class Mapa {
     public void mapa(){
         for (Posicao posicaoFor : posicoes) {
             if (posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade() == null){
-                    System.out.print("[    ]");
+                    System.out.print("[      ]");
             }
             else{
-                System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+" ]");
+                if(posicoes.indexOf(posicaoFor)<10){
+                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+"0"+posicoes.indexOf(posicaoFor)+" ]");
+                }else {
+                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicaoFor)).getUnidade().icon()+posicoes.indexOf(posicaoFor)+" ]");
+                }
             }
             if ((posicoes.indexOf(posicaoFor)+1)%6 == 0){
                 System.out.print("\n");
@@ -86,19 +98,23 @@ public class Mapa {
              posicoes) {
             if(peca.possiveisPosicoes.contains(posicao)){
                 if(posicoes.indexOf(posicao)<10){
-                    System.out.print("[ 0"+posicoes.indexOf(posicao)+" ]");
+                    System.out.print("[  0"+posicoes.indexOf(posicao)+"  ]");
                 }else {
-                    System.out.print("[ "+posicoes.indexOf(posicao)+" ]");
+                    System.out.print("[  "+posicoes.indexOf(posicao)+"  ]");
                 }
             }
             else if(posicoes.get(posicoes.indexOf(posicao)).getUnidade() != null && posicao.getUnidade() != peca){
-                System.out.print("[ "+posicoes.get(posicoes.indexOf(posicao)).getUnidade().icon()+" ]");
+                if(posicoes.indexOf(posicao)<10){
+                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicao)).getUnidade().icon()+"0"+posicoes.indexOf(posicao)+" ]");
+                }else {
+                    System.out.print("[ "+posicoes.get(posicoes.indexOf(posicao)).getUnidade().icon()+posicoes.indexOf(posicao)+" ]");
+                }
             }
             else if(posicao.getUnidade() != peca){
-                System.out.print("[    ]");
+                System.out.print("[      ]");
             }
             if(posicao.getUnidade() == peca){
-                System.out.print("[ XX ]");
+                System.out.print("[  XX  ]");
             }
             if ((posicoes.indexOf(posicao)+1)%6 == 0){
                 System.out.print("\n");

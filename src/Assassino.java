@@ -91,6 +91,8 @@ public class Assassino extends Unidade{
 
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
+        areaAtaque.removeAll(posicoesNoMapa);
+
         if(jogandoAgora == jogador) {
 
             if(posicaoNoMapa-6 > 0){

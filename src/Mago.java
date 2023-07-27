@@ -23,7 +23,6 @@ public class Mago extends Unidade{
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
         possiveisPosicoes.removeAll(posicoesNoMapa);
 
-        if(jogandoAgora == jogador1){
             if(posicaoNoMapa-6>0){
                 if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade() == null){
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
@@ -44,7 +43,7 @@ public class Mago extends Unidade{
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-1));
                 }
             }
-        }else {
+
             if(posicaoNoMapa+6<36){
                 if(posicoesNoMapa.get(posicaoNoMapa+6).getUnidade()  == null){
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
@@ -65,7 +64,6 @@ public class Mago extends Unidade{
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
                 }
             }
-        }
 
 
         return possiveisPosicoes;
@@ -77,8 +75,7 @@ public class Mago extends Unidade{
         int posicaoNoMapa = mapa.getPosicaoPeca(peca);
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
 
-
-        if(jogandoAgora == jogador){
+        areaAtaque.removeAll(posicoesNoMapa);
 
             int i = posicaoNoMapa;
 
@@ -107,35 +104,34 @@ public class Mago extends Unidade{
                 j-=5;
 
             }while (j>=0 && !verificaExtremidade(j));
-        }else{
-            int i = posicaoNoMapa;
+
+            int l = posicaoNoMapa;
             do{
 
-                if(i<36){
-                    if(posicoesNoMapa.get(i).getUnidade() != null){
-                        areaAtaque.add(posicoesNoMapa.get(i));
+                if(l<36){
+                    if(posicoesNoMapa.get(l).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(l));
                     }
                 }
 
-                i+=7;
+                l+=7;
 
-            }while (i<36 && !verificaExtremidade(i+1));
+            }while (l<36 && !verificaExtremidade(l+1));
 
 
-            int j = posicaoNoMapa;
+            int f = posicaoNoMapa;
 
             do{
 
-                j+=5;
+                f+=5;
 
-                if(j<36){
-                    if(posicoesNoMapa.get(j).getUnidade() != null){
-                        areaAtaque.add(posicoesNoMapa.get(j));
+                if(f<36){
+                    if(posicoesNoMapa.get(f).getUnidade() != null){
+                        areaAtaque.add(posicoesNoMapa.get(f));
                     }
                 }
 
-            }while (j<36 && !verificaExtremidade(j));
-        }
+            }while (f<36 && !verificaExtremidade(f));
 
         return areaAtaque;
     }

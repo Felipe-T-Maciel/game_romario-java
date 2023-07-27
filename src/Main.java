@@ -71,23 +71,23 @@ public class Main {
                         switch (jogadores) {
                             case 1 -> {
                                 if (i < 1) {
-                                    jogador1.pecas.add(new Mago(100, 100, "Mago"));
+                                    jogador1.pecas.add(new Mago(100, 35, "Mago"));
                                 } else {
                                     jogador2.pecas.add(new Mago(100, 35, "Mago"));
                                 }
                             }
                             case 2 -> {
                                 if (i < 1) {
-                                    jogador1.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
+                                    jogador1.pecas.add(new Arqueiro(100, 30, "Arqueiro"));
                                 } else {
-                                    jogador2.pecas.add(new Arqueiro(100, 15, "Arqueiro"));
+                                    jogador2.pecas.add(new Arqueiro(100, 30, "Arqueiro"));
                                 }
                             }
                             case 3 -> {
                                 if (i < 1) {
-                                    jogador1.pecas.add(new Assassino(80, 40, "Assassino"));
+                                    jogador1.pecas.add(new Assassino(80, 55, "Assassino"));
                                 } else {
-                                    jogador2.pecas.add(new Assassino(80, 40, "Assassino"));
+                                    jogador2.pecas.add(new Assassino(80, 55, "Assassino"));
 
                                 }
                             }
@@ -133,23 +133,19 @@ public class Main {
 
             for (int j = 0; j < jogando.pecas.size(); j++) {
                 int posicaoPeca = 0;
-                if (jogando.equals(jogador1)){
-                    mapa.ImprimeLista(jogando, jogador1);
-                    System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
-                    posicaoPeca = sc.nextInt();
+                mapa.ImprimeLista(jogando, jogador1);
+                System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
+                posicaoPeca = sc.nextInt();
+                if(i==0){
                     if(posicaoPeca>=18 && posicaoPeca<36 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
                         jogador1.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                     }else {
                         System.out.println("Escolha uma posição valida para a peça");
                         j--;
                     }
-                }
-                else {
-                    mapa.ImprimeLista(jogando, jogador1);
-                    System.out.println("Onde deseja colocar o "+jogando.pecas.get(j).nome);
-                    posicaoPeca = sc.nextInt();
+                }else {
                     if(posicaoPeca<18 && posicaoPeca>=0 && mapa.getPosicoes().get(posicaoPeca).getUnidade() == null){
-                        jogando.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
+                        jogador2.prePosicaoJogador1(jogando.pecas.get(j), posicaoPeca, mapa);
                     }else {
                         System.out.println("Escolha uma posição valida para a peça");
                         j--;
@@ -193,13 +189,14 @@ public class Main {
                 }
                 System.out.println("""
                 O que pretende fazer?
-                    [1] Atacar
+                    [1] Trocar de peça
                     [2] Se mover
+                    [3] Atacar
                 """);
                 int opcaoJogada = sc.nextInt();
 
                 switch (opcaoJogada) {
-                    case 1 -> {
+                    case 3 -> {
                         Unidade pecaInimiga = null;
                             if (jogando.pecasAtacar(peca, jogandoInimigo, mapa)) {
                                 System.out.println("A posicao da peça que deseja atacar: ");
@@ -236,6 +233,9 @@ public class Main {
                         } else {
                             System.out.println("Movimento invalido");
                         }
+                    }
+                    case 1 -> {
+                        vezJogador--;
                     }
                 }
 
