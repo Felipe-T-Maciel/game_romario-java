@@ -7,9 +7,7 @@ public class Cavaleiro extends Unidade {
 
     @Override
     void Atacar(Unidade pecaAtacar, Jogador jogadorInimigo, Mapa mapa) {
-        int vida = pecaAtacar.getVida();
-        vida -= 60;
-        pecaAtacar.setVida(vida);
+        pecaAtacar.setVida(60);
         pecaMorta(pecaAtacar, jogadorInimigo, mapa);
     }
 
@@ -40,23 +38,23 @@ public class Cavaleiro extends Unidade {
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
         areaAtaque.removeAll(posicoesNoMapa);
 
-        if(posicaoNoMapa-6 > 0){
+        if(posicaoNoMapa-6 >= 0){
             if (posicoesNoMapa.get(posicaoNoMapa - 6).getUnidade() != null) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 6));
             }
         }
-        if(posicaoNoMapa-12 > 0){
+        if(posicaoNoMapa-12 >= 0){
             if (posicoesNoMapa.get(posicaoNoMapa - 12).getUnidade() != null) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 12));
             }
         }
-        if(posicaoNoMapa-5 > 0){
+        if(posicaoNoMapa-5 >= 0){
             if (posicoesNoMapa.get(posicaoNoMapa -5).getUnidade() != null && !verificaExtremidade(posicaoNoMapa-5)) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 5));
             }
         }
 
-        if(posicaoNoMapa-7 > 0){
+        if(posicaoNoMapa-7 >= 0){
             if (posicoesNoMapa.get(posicaoNoMapa - 7).getUnidade() != null && !verificaExtremidade(posicaoNoMapa)) {
                 areaAtaque.add(posicoesNoMapa.get(posicaoNoMapa - 7));
             }

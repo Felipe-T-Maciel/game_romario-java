@@ -23,7 +23,7 @@ public class Mago extends Unidade{
         ArrayList<Posicao> posicoesNoMapa = mapa.getPosicoes();
         possiveisPosicoes.removeAll(posicoesNoMapa);
 
-            if(posicaoNoMapa-6>0){
+            if(posicaoNoMapa-6>=0){
                 if(posicoesNoMapa.get(posicaoNoMapa-6).getUnidade() == null){
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa-6));
                 }
@@ -33,7 +33,7 @@ public class Mago extends Unidade{
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+6));
                 }
             }
-            if(posicaoNoMapa-1>0){
+            if(posicaoNoMapa-1>=0){
                 if(posicoesNoMapa.get(posicaoNoMapa+1).getUnidade()  == null && !verificaExtremidade(posicaoNoMapa+1)){
                     possiveisPosicoes.add(posicoesNoMapa.get(posicaoNoMapa+1));
                 }

@@ -5,7 +5,6 @@ abstract public class Unidade {
      private int vida, danoAtaque;
      String nome;
      Posicao posicao;
-     private ArrayList<Posicao> areaDefesa = new ArrayList<>();
      ArrayList<Posicao> possiveisPosicoes = new ArrayList<>();
      ArrayList<Posicao> areaAtaque = new ArrayList<>();
 
@@ -29,10 +28,6 @@ abstract public class Unidade {
     abstract ArrayList<Posicao> VerificaAreaAtaque(Mapa mapa, Jogador jogandoAgora, Jogador jogador, Unidade peca);
     abstract String icon();
 
-    public Posicao getPosicao() {
-        return posicao;
-    }
-
     public boolean verificaExtremidade(int posicaoNoMapa){
         return (posicaoNoMapa) % 6 == 0;
     }
@@ -42,7 +37,7 @@ abstract public class Unidade {
     }
 
     public void setVida(int vida) {
-        this.vida = vida;
+        this.vida -= vida;
     }
 
     public void mover(Mapa mapa, Unidade peca, int movimento){
